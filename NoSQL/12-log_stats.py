@@ -11,25 +11,25 @@ def print_nginx_request_logs(nginx_collection):
     Args:
         nginx_collection: MongoDB collection object containing nginx logs
     '''
-    # 1. Get total number of logs
+    # Get total number of logs
     total_logs = nginx_collection.count_documents({})
-    print(f'{total_logs} logs')
+    print(f"{total_logs} logs")
 
-    # 2. Print methods header
-    print('Methods:')
+    # Print methods header
+    print("Methods:")
 
-    # 3. Count and display each HTTP method
+    # Count and display each HTTP method
     methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
     for method in methods:
         count = nginx_collection.count_documents({'method': method})
-        print(f'\tmethod {method}: {count}')
+        print(f"\tmethod {method}: {count}")
 
-    # 4. Count status checks (GET requests to /status)
+    # Count status checks (GET requests to /status)
     status_checks = nginx_collection.count_documents({
         'method': 'GET',
         'path': '/status'
     })
-    print(f'{status_checks} status check')
+    print(f"{status_checks} status check")
 
 def run():
     '''
