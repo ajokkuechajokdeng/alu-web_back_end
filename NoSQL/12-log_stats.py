@@ -2,9 +2,7 @@
 """ 12. Log stats
 """
 
-
 from pymongo import MongoClient
-
 
 def log_stats():
     """ log_stats.
@@ -19,6 +17,7 @@ def log_stats():
     delete = logs_collection.count_documents({"method": "DELETE"})
     path = logs_collection.count_documents(
         {"method": "GET", "path": "/status"})
+    
     print(f"{total} logs")
     print("Methods:")
     print(f"\tmethod GET: {get}")
@@ -27,7 +26,6 @@ def log_stats():
     print(f"\tmethod PATCH: {patch}")
     print(f"\tmethod DELETE: {delete}")
     print(f"{path} status check")
-
 
 if __name__ == "__main__":
     log_stats()
