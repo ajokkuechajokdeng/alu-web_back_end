@@ -5,31 +5,33 @@ Displays statistics about HTTP methods and status checks
 '''
 from pymongo import MongoClient
 
+
 def print_nginx_request_logs(nginx_collection):
     '''
     Prints formatted stats about Nginx request logs
     Args:
         nginx_collection: MongoDB collection object containing nginx logs
     '''
-    # Get total number of logs
+    # 1. Get total number of logs
     total_logs = nginx_collection.count_documents({})
-    print(f"{total_logs} logs")
+    print(f'{total_logs} logs')
 
-    # Print methods header
-    print("Methods:")
+    # 2. Print methods header
+    print('Methods:')
 
-    # Count and display each HTTP method
+    # 3. Count and display each HTTP method
     methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
     for method in methods:
         count = nginx_collection.count_documents({'method': method})
-        print(f"\tmethod {method}: {count}")
+        print(f'\tmethod {method}: {count}')
 
-    # Count status checks (GET requests to /status)
+    # 4. Count status checks (GET requests to /status)
     status_checks = nginx_collection.count_documents({
         'method': 'GET',
         'path': '/status'
     })
-    print(f"{status_checks} status check")
+    print(f'{status_checks} status check')
+
 
 def run():
     '''
@@ -43,6 +45,7 @@ def run():
     
     # Print the statistics
     print_nginx_request_logs(nginx_collection)
+
 
 if __name__ == '__main__':
     run()
